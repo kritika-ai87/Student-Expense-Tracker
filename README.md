@@ -1,137 +1,328 @@
-Capstone Student Expense Tracker
+# Student Expense Tracker
 
-A full-stack web application to manage student expenses with smart insights and data visualization.
+This is a beginner-friendly full-stack capstone project for tracking student income and expenses.
 
+The project has:
 
+- Frontend made with HTML, CSS, JavaScript, and Chart.js
+- Backend made with Node.js and Express.js
+- Simple JSON file storage instead of MongoDB
+- REST API integration between frontend and backend
+- CRUD operations, validation, search, filter, summary cards, charts, and smart insights
 
-💰 Student Expense Tracker
+## Project Goal
 
-📌 Project Description
-The **Student Expense Tracker** is a full-stack web application designed to help students efficiently track and manage their income and expenses. The application provides a structured dashboard to record transactions, categorize spending, and visualize financial data.
+Students can add their income and expenses, view all transactions, edit or delete old records, search and filter records, and understand spending through charts and summary values.
 
-This project integrates **frontend UI, backend APIs (Node.js & Express.js), and database storage (MongoDB)**, ensuring proper data handling, validation, and real-time updates. It also includes **smart insights** to analyze spending behavior and improve financial awareness.
+## Folder Structure
 
+```text
+expense-tracker/
+|-- frontend/
+|   |-- index.html
+|   |-- styles.css
+|   `-- app.js
+|
+|-- backend/
+|   |-- package.json
+|   |-- data/
+|   |   `-- transactions.json
+|   `-- src/
+|       |-- server.js
+|       |-- seed.js
+|       `-- routes/
+|           `-- transactions.js
+|
+`-- README.md
+```
 
+## Frontend Documentation
 
-🎯 Objectives
-Develop a full-stack application with frontend and backend integration
-Implement CRUD operations for expense management
-Store and manage data using a database
-Provide insights through charts and analytics
+### `frontend/index.html`
 
+This file contains the page structure.
 
+Main sections:
 
-🚀 Features
+- Header with app name
+- Summary cards for income, expenses, and balance
+- Transaction form to add or edit records
+- Smart insights section
+- Bar chart and pie chart
+- Search and filter controls
+- Transaction table
 
-🔍 Transaction Management (CRUD Operations)
-Create (Add income/expense)
-Read (View transaction history)
-Update (Edit transactions)
-Delete (Remove transactions)
+Important element IDs used by JavaScript:
 
-📂 Category Management
-Predefined categories (Food, Travel, Shopping, etc.)
-Structured classification of expenses
+- `expenseForm` - transaction form
+- `transactionList` - table body where transactions are shown
+- `income`, `expenses`, `balance` - summary cards
+- `barChart`, `pieChart` - Chart.js chart areas
+- `search`, `filterType`, `filterCategory` - filter inputs
 
-📊 Data Visualization
-Monthly expense bar chart
-Category-wise pie chart
+### `frontend/styles.css`
 
-⚠️ Data Validation
-Prevent empty or invalid inputs
-Ensure correct data format before submission
+This file contains simple responsive styling.
 
-📅 Monthly Summary
-Total income
-Total expenses
-Remaining balance
+It styles:
 
-💡 Smart Insights
-Detect highest spending category
-Analyze increase/decrease in expenses
-Identify spending patterns
+- Page background and font
+- Header
+- Cards
+- Form
+- Buttons
+- Table
+- Mobile responsive layout
 
-🔎 Search & Filter
-Filter transactions by category
-Filter by date
+The layout uses CSS grid. On small screens, the grid becomes one column.
 
+### `frontend/app.js`
 
+This file contains all frontend logic.
 
-📊 Data Handling & API Integration
-Frontend communicates with backend using REST APIs
-Backend built using **Node.js and Express.js**
-Data stored in **MongoDB database**
-Backend processes requests and sends responses
-Ensures persistent and secure data storage
+Main variables:
 
+- `API` - backend API URL
+- `categories` - list of transaction categories
+- `transactions` - stores transactions loaded from backend
+- `barChart`, `pieChart` - store Chart.js chart objects
 
+Main functions:
 
-🎨 UI Features (Frontend Development)
-Clean and user-friendly interface
-Responsive design (mobile, tablet, desktop)
-Well-structured HTML and CSS
-Dynamic UI updates using JavaScript
+- `fillCategories()` - adds category options to dropdowns
+- `api()` - sends requests to backend
+- `getFormData()` - reads form input values
+- `clearForm()` - resets the form
+- `loadTransactions()` - loads transactions and summary from backend
+- `showTransactions()` - displays transactions in table
+- `showSummary()` - updates income, expenses, balance, and insights
+- `showCharts()` - creates bar chart and pie chart
+- `editTransaction()` - fills the form with selected transaction data
+- `deleteTransaction()` - deletes a selected transaction
 
+Frontend API calls:
 
+- `GET /api/transactions`
+- `GET /api/transactions/summary`
+- `POST /api/transactions`
+- `PUT /api/transactions/:id`
+- `DELETE /api/transactions/:id`
 
-⚙️ Backend Development
-Built using **Node.js and Express.js**
-Implements RESTful APIs (GET, POST, PUT, DELETE)
-Handles CRUD operations
-Manages database communication with MongoDB
-Implements server-side data validation
+## Backend Documentation
 
+### `backend/src/server.js`
 
+This file starts the Express server.
 
-🗄️ Database
-MongoDB for storing user transactions
-Efficient and scalable data storage
+It does three main things:
 
+1. Imports Express and CORS
+2. Adds middleware for JSON data and CORS
+3. Connects transaction routes to `/api/transactions`
 
+Server runs at:
 
-🔗 Full Stack Integration
-Frontend → API Requests → Backend (Node.js + Express) → Database (MongoDB)
-Backend → Processes Data → Sends Response → Frontend Updates UI
+```text
+http://localhost:5001
+```
 
+Health check route:
 
+```text
+GET /api/health
+```
 
-📈 Product Flow (Project Plan Requirement)
+### `backend/src/routes/transactions.js`
 
-User opens application
-→ Adds income/expense
-→ Data sent to backend API
-→ Backend (Node.js + Express) processes request
-→ Stored in MongoDB
-→ Response sent to frontend
-→ UI updates transaction list
-→ Charts & insights generated
+This file contains the main backend API logic.
 
+It uses:
 
+- `fs` to read and write the JSON file
+- `path` to locate the data file
+- Express router for API routes
 
-📁 Repository Structure
+Important functions:
 
-/expense-tracker
-│── /frontend
-│── /backend
-│── /readme-assets (flowcharts, UI design)
-│── README.md
+- `readData()` - reads transactions from `transactions.json`
+- `writeData()` - saves transactions to `transactions.json`
+- `checkData()` - validates title, amount, type, category, and date
+- `filterData()` - filters transactions by search, type, and category
+- `makeSummary()` - calculates income, expenses, balance, chart data, and insights
 
+### `backend/data/transactions.json`
 
+This file acts as the database.
 
-🌐 Live Links (to be added)
-Frontend: (Add deployed link)
-Backend: (Add deployed API link)
+Each transaction has:
 
+```json
+{
+  "_id": "1",
+  "title": "Hostel rent",
+  "type": "expense",
+  "amount": 6000,
+  "category": "Rent",
+  "date": "2026-04-05",
+  "note": "April rent"
+}
+```
 
+### `backend/src/seed.js`
 
-💡 Future Scope
-User authentication (login/signup)
-Cloud deployment
-Advanced analytics and predictions
-Personalized budgeting system
+This file resets demo data.
 
+Run it when you want fresh sample data:
 
+```bash
+npm run seed
+```
 
-💡 Developers
-Kritika Rawat,Nick Tyagi
+## API Documentation
 
+Base URL:
+
+```text
+http://localhost:5001/api
+```
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| GET | `/health` | Checks if API is running |
+| GET | `/transactions/categories` | Gets all categories |
+| GET | `/transactions` | Gets all transactions |
+| GET | `/transactions/summary` | Gets totals, chart data, and insights |
+| POST | `/transactions` | Adds a new transaction |
+| PUT | `/transactions/:id` | Updates a transaction |
+| DELETE | `/transactions/:id` | Deletes a transaction |
+
+### Search and Filter
+
+The transaction list and summary routes support query parameters:
+
+```text
+/api/transactions?search=rent&type=expense&category=Rent
+```
+
+Supported filters:
+
+- `search`
+- `type`
+- `category`
+
+### Add Transaction Example
+
+```http
+POST /api/transactions
+Content-Type: application/json
+```
+
+```json
+{
+  "title": "Lunch",
+  "amount": 120,
+  "type": "expense",
+  "category": "Food",
+  "date": "2026-05-03",
+  "note": "College canteen"
+}
+```
+
+## Features
+
+- Add income and expense
+- View transaction history
+- Edit transaction
+- Delete transaction
+- Search transactions
+- Filter by type
+- Filter by category
+- Form validation
+- Total income calculation
+- Total expense calculation
+- Balance calculation
+- Highest spending category insight
+- Monthly spending trend insight
+- Monthly bar chart
+- Category pie chart
+
+## Data Validation
+
+The backend checks:
+
+- Title is required
+- Amount must be greater than zero
+- Type must be `income` or `expense`
+- Category must be valid
+- Date is required
+
+If data is invalid, the API returns an error message.
+
+## Product Flow
+
+```mermaid
+flowchart LR
+  A["User opens app"] --> B["User adds transaction"]
+  B --> C["Frontend sends API request"]
+  C --> D["Backend validates data"]
+  D --> E["Data saved in JSON file"]
+  E --> F["Backend sends response"]
+  F --> G["Frontend updates table, cards, charts, and insights"]
+```
+
+## How to Run
+
+### 1. Start Backend
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+Backend will run on:
+
+```text
+http://localhost:5001
+```
+
+### 2. Open Frontend
+
+Open this file in browser:
+
+```text
+frontend/index.html
+```
+
+Or run a simple frontend server:
+
+```bash
+cd frontend
+python3 -m http.server 5500
+```
+
+Then open:
+
+```text
+http://localhost:5500
+```
+
+## Deployment Notes
+
+Frontend can be deployed on:
+
+- Netlify
+- Vercel
+- GitHub Pages
+
+Backend can be deployed on:
+
+- Render
+- Railway
+- Cyclic
+
+For a real production app, MongoDB can be added later. This version uses JSON storage to keep the code simple and beginner-friendly.
+
+## Developers
+
+Kritika Rawat and Nick Tyagi
