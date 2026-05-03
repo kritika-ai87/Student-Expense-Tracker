@@ -1,0 +1,73 @@
+const fs = require("fs");
+const path = require("path");
+
+const dataFile = path.join(__dirname, "../data/transactions.json");
+
+const transactions = [
+  {
+    _id: "1",
+    title: "Part-time tutoring",
+    type: "income",
+    amount: 9000,
+    category: "Salary",
+    date: "2026-03-03",
+    note: "Weekend classes"
+  },
+  {
+    _id: "2",
+    title: "Scholarship credit",
+    type: "income",
+    amount: 12000,
+    category: "Scholarship",
+    date: "2026-04-04",
+    note: "Monthly support"
+  },
+  {
+    _id: "3",
+    title: "Hostel rent",
+    type: "expense",
+    amount: 6000,
+    category: "Rent",
+    date: "2026-04-05",
+    note: "April rent"
+  },
+  {
+    _id: "4",
+    title: "Canteen meals",
+    type: "expense",
+    amount: 2400,
+    category: "Food",
+    date: "2026-04-10",
+    note: "Lunch and snacks"
+  },
+  {
+    _id: "5",
+    title: "Metro pass",
+    type: "expense",
+    amount: 1200,
+    category: "Travel",
+    date: "2026-04-12",
+    note: "Student commute"
+  },
+  {
+    _id: "6",
+    title: "Exam guides",
+    type: "expense",
+    amount: 1800,
+    category: "Education",
+    date: "2026-05-01",
+    note: "Semester material"
+  },
+  {
+    _id: "7",
+    title: "Movie night",
+    type: "expense",
+    amount: 700,
+    category: "Entertainment",
+    date: "2026-05-02",
+    note: "Friends outing"
+  }
+];
+
+fs.writeFileSync(dataFile, JSON.stringify(transactions, null, 2));
+console.log("Demo data added successfully.");

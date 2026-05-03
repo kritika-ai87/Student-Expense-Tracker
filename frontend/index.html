@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Student Expense Tracker</h1>
+      <p>Track income, expenses, balance and spending categories.</p>
+    </header>
+
+    <main>
+      <section class="cards">
+        <div class="card">
+          <p>Total Income</p>
+          <h2 id="income">₹0</h2>
+        </div>
+        <div class="card">
+          <p>Total Expenses</p>
+          <h2 id="expenses">₹0</h2>
+        </div>
+        <div class="card">
+          <p>Balance</p>
+          <h2 id="balance">₹0</h2>
+        </div>
+      </section>
+
+      <section class="grid">
+        <form id="expenseForm" class="box">
+          <h2 id="formHeading">Add Transaction</h2>
+          <input type="hidden" id="editId" />
+
+          <label>Title</label>
+          <input id="title" type="text" placeholder="Food, rent, scholarship" />
+
+          <label>Amount</label>
+          <input id="amount" type="number" placeholder="500" />
+
+          <label>Type</label>
+          <select id="type">
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+
+          <label>Category</label>
+          <select id="category"></select>
+
+          <label>Date</label>
+          <input id="date" type="date" />
+
+          <label>Note</label>
+          <input id="note" type="text" placeholder="Optional" />
+
+          <p id="message"></p>
+          <button type="submit">Save</button>
+          <button type="button" id="clearBtn">Clear</button>
+        </form>
+
+        <div class="box">
+          <h2>Smart Insights</h2>
+          <p><b>Highest Category:</b> <span id="topCategory">None</span></p>
+          <p><b>Trend:</b> <span id="trend">Add more records.</span></p>
+          <canvas id="barChart"></canvas>
+          <canvas id="pieChart"></canvas>
+        </div>
+      </section>
+
+      <section class="box">
+        <h2>Transactions</h2>
+
+        <div class="filters">
+          <input id="search" type="text" placeholder="Search" />
+          <select id="filterType">
+            <option value="all">All Types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          <select id="filterCategory">
+            <option value="all">All Categories</option>
+          </select>
+          <button id="filterBtn">Filter</button>
+          <button id="resetBtn">Reset</button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="transactionList"></tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>
